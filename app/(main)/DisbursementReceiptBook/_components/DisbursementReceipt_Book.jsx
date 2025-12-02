@@ -16,7 +16,7 @@ const fontZenKaku = Zen_Kaku_Gothic_Antique({
 const getDateString = (date) =>
   date.toISOString().slice(0, 10);
 
-const DisbursementReceiptBook = ({ outflows = [] }) => {
+const DisbursementReceiptBook = ({ outflows = [], outflowAccountName }) => {
   const today = new Date();
   const lastMonth = new Date();
   lastMonth.setDate(today.getDate() - 30); 
@@ -131,7 +131,7 @@ const DisbursementReceiptBook = ({ outflows = [] }) => {
 
 
 
-
+console.log(outflows)
 
 
 
@@ -168,6 +168,9 @@ const DisbursementReceiptBook = ({ outflows = [] }) => {
         <h1 className={`${fontZenKaku.className} text-4xl sm:text-5xl lg:text-6xl font-black text-teal-300`}>
           Disbursement Receipt Book
         </h1>
+        <p className={`${fontZenKaku.className} mt-4 text-lg sm:text-xl lg:text-2xl font-medium text-teal-300`}>
+          of {outflowAccountName}
+        </p>
       </div>
 
       {/* Filters Section */}
@@ -245,17 +248,15 @@ const DisbursementReceiptBook = ({ outflows = [] }) => {
                   >
                     <TableCell
                       className="max-w-[120px] truncate overflow-hidden whitespace-nowrap"
+                      title={formatDate(outflow.date)}
                     >
-                      <span title={formatDate(outflow.date) || "N/A"}>
                       {formatDate(outflow.date)}
-                      </span>
                       </TableCell>
                     <TableCell
                       className="max-w-[180px] truncate overflow-hidden whitespace-nowrap"
+                      title={outflow.description || "N/A"}
                     >
-                      <span title={formatDate(outflow.date) || "N/A"}>
                         {outflow.description || "N/A"}
-                      </span>
                     </TableCell>
                     <TableCell>{outflow.particular || "N/A"}</TableCell>
                     <TableCell>{outflow.refNumber || "N/A"}</TableCell>
@@ -298,7 +299,8 @@ const DisbursementReceiptBook = ({ outflows = [] }) => {
               <TableHeader>
                 <TableRow className="bg-teal-100">
                   {categories.map((category) => (
-                    <TableCell key={category} className="font-medium text-base text-slate-700">
+                    <TableCell key={category} className="font-medium text-base text-slate-700 max-w-[120px] w-[120px] truncate overflow-hidden whitespace-nowrap"
+                    title={category ?? "N/A"}>
                       {category}
                     </TableCell>
                   ))}

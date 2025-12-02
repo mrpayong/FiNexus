@@ -158,18 +158,21 @@ export async function getAccountWithTransactions(accountId) {
 
     const account = await db.account.findUnique({
         where: { id: accountId, userId: user.id },
-        include: {
-            transactions: {
-              where: {voided:false},  
-              orderBy: {date: "desc" },
-            },
-            _count: {
-                select: { 
-                  transactions:{
-                    where: {voided:false}
-                  } 
-                },
-            },
+        select: {
+          name:true,
+          
+          transactions: {
+            where: {voided:false},  
+            orderBy: {date: "desc" },
+          },
+
+          _count: {
+              select: { 
+                transactions:{
+                  where: {voided:false}
+                } 
+              },
+          },
         },
     });
 
@@ -730,6 +733,10 @@ export async function getSubAccounts(accountId) {
       },
     });
 
+    const accountName = await db.account.findUnique({
+      where: { id: accountId },
+      select: { name: true },
+    });
     // Process each subAccount recursively
     const processedAccounts = await Promise.all(
       topLevelSubAccounts.map(async (account) => {
@@ -737,7 +744,7 @@ export async function getSubAccounts(accountId) {
       })
     );
 
-    return { success: true, data: processedAccounts };
+    return { success: true, data: processedAccounts, accountName:accountName };
   } catch (error) {
     console.error("Error in getSubAccountsWithDynamicDepth:", error.message);
     return { success: false, error: error.message };

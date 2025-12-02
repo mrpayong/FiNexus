@@ -14,8 +14,8 @@ import Footer from "@/components/Footer";
 const inter = Inter({subsets:["latin"]});
 
 export const metadata = {
-  title: "Teruel Accounting",
-  description: "Teruel Accounting Firm Financial Management System",
+  title: "FiNexus",
+  description: "Cashflow Management System",
 };
 
 
@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
         <html lang="en">
           <body
-            className={`${inter.className}`}
+            className={`${inter.className} bg-[#F5F5F5]`}
           >
               <Header />
                 <main className="min-h-screen relative z-0">

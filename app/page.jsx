@@ -33,11 +33,11 @@ import {
   IdCard,
   Weight
 } from "lucide-react";
-import {Oswald, Overpass_Mono, Poppins, PT_Serif} from "next/font/google";
+import { Notable, Overpass_Mono, Poppins, PT_Serif} from "next/font/google";
 
-const fontOwsald = Oswald({
+const fontOwsald = Notable({
   subsets: ["latin"],
-  weight: ["200", "400"]
+  weight: [ "400"]
 })
 
 const fontOverpassMono = Overpass_Mono({
@@ -51,6 +51,7 @@ const fontPoppins = Poppins({
 })
 
 
+
 const Home = () => {
   const [activeSection, setActiveSection] = useState("cashflow");
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -58,43 +59,33 @@ const Home = () => {
   const mainContentRef = useRef(null);
   const [showButton, setShowButton] = useState(false);
   // Handle scroll progress
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setShowButton(true); // Show button when scrolled down
-      } else {
-        setShowButton(false); // Hide button when at the top
-      }
-    
-      if (!mainContentRef.current) return;
-      const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const fullHeight = document.body.offsetHeight;
-      const progress = (scrollPosition / (fullHeight - windowHeight)) * 100;
-      setScrollProgress(progress);
-      // Update active section based on scroll position
-      const sections = document.querySelectorAll("section[id]");
-      sections.forEach((section) => {
-        const sectionTop = (section).offsetTop - 100;
-        const sectionHeight = (section).offsetHeight;
-        if (
-          scrollPosition >= sectionTop &&
-          scrollPosition < sectionTop + sectionHeight
-        ) {
-          setActiveSection(section.id);
-        }
-      });
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-  const toggleBookmark = (sectionId) => {
-    if (bookmarked.includes(sectionId)) {
-      setBookmarked(bookmarked.filter((id) => id !== sectionId));
+useEffect(() => {
+  const handleScroll = () => {
+    if (window.scrollY > 100) {
+      setShowButton(true); // Show button when scrolled down
     } else {
-      setBookmarked([...bookmarked, sectionId]);
+      setShowButton(false); // Hide button when at the top
     }
+
+    if (!mainContentRef.current) return;
+    const scrollPosition = window.scrollY;
+    const sections = document.querySelectorAll("section[id]");
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop - 100;
+      const sectionHeight = section.offsetHeight;
+      if (
+        scrollPosition >= sectionTop &&
+        scrollPosition < sectionTop + sectionHeight
+      ) {
+        setActiveSection(section.id);
+      }
+    });
   };
+
+  window.addEventListener("scroll", handleScroll);
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
+
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
@@ -108,7 +99,7 @@ const Home = () => {
       title: "Account Creation",
       bestPracticeId: "account",
       icon: <IdCard/>,
-      src: "/addAccountForm.png",
+      src: "/addAccountForm1.png",
       description: 
         "Create an account for your client.",
       steps: [
@@ -124,7 +115,7 @@ const Home = () => {
       title: "AI-Powered Transaction Recording",
       bestPracticeId: "infoAI",
       src: "/AddTransac.png",
-      icon: <Bot className="text-black group-hover:text-white group-hover:animate-bounce"/>,
+      icon: <Bot />,
       description:
         "Save time on recording the transactions in the accounts.",
       steps: [
@@ -171,7 +162,7 @@ const Home = () => {
       id: "DecisionSupport",
       title: "Decision Support System",
       bestPracticeId: "DSS",
-      icon: <Brain className="text-black group-hover:text-white group-hover:animate-bounce"/>,
+      icon: <Brain/>,
       src: "/DecisionSupport.png",
       description:
         "Receive financial insights and recommendations through Hybrid Decision Support.",
@@ -303,6 +294,7 @@ const Home = () => {
     },
   ]
 
+  
 
 
 
@@ -313,24 +305,23 @@ const Home = () => {
 
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#FFFFFF]">
       {/* Header with progress bar */}
-      <header className="sticky top-0 z-50 bg-transparent border-b border-gray-200 shadow-sm pt-11">
+      <header className="sticky top-0 z-50 bg-transparent shadow-sm pt-11 rounded-3xl ">
 
 
         {/* Navigation tabs */}
-        <div className="container mx-auto px-4 bg-transparent backdrop-blur-lg">
+        <div className="container mx-auto px-4 bg-transparent backdrop-blur-md">
           <Tabs className="mt-10 pt-2 bg-transparent">
-              <TabsList className="w-full justify-between  bg-transparent
+              <TabsList className="w-full justify-between bg-transparent
               overflow-x-auto overflow-y-hidden py-2 space-x-2 h-auto ">
             {features.map((feature) => (
               <TabsTrigger
                 key={feature.id}
                 value={feature.id}
                 onClick={() => scrollToSection(feature.id)}
-                className={`${activeSection === feature.id ? "backdrop-blur-lg text-blue-700" : ""} ${fontPoppins.className} gap-1 cursor-pointer whitespace-nowrap`}
+                className={`${activeSection === feature.id ? "!bg-[#d4af37a2]  text-[#FFFFFF] " : "!bg-transparent !border-none !shadow-none"} ${fontPoppins.className} gap-1 cursor-pointer whitespace-nowrap`}
               >
-                {/* <i className={`${feature.icon} mr-2`}></i> */}
                 {feature.icon}
                 {feature.title}
               </TabsTrigger>
@@ -341,40 +332,24 @@ const Home = () => {
       </header>
 
       {/* Hero section */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-sky-50 to-transparent">
+      <div className="relative overflow-hidden bg-[#F5F5F5]">
         <div className="container mx-auto px-4 py-16 flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 z-10 animate-slide-in-left">
+          <div className="md:w-1/2 z-10 animate-slide-in-left ml-2">
             <Badge
               variant="outline"
-              className='lg:text-xs text-[0.5rem]/[1] mb-4 px-3 py-1 bg-blue-100 text-blue-700 border-blue-200'
+              className='lg:text-xs text-[0.5rem]/[1] mb-4 px-3 py-1 bg-[#d4af37a2] text-[#0D0D0D] border-[#C19A2F] ml-1'
             >
               Getting Started Guide
             </Badge>
-            <h1 className={`text-3xl lg:text-[4rem]/[1] break-words tracking-wider font-extralight text-gray-900 mb-4 w-full ${fontOwsald.className}`}>
-              Teruel Accounting Financial<br/> Management System
+            <h1 className={`text-3xl lg:text-[5rem]/[1]  tracking-wider font-extralight text-[#0D0D0D] mb-4 w-full ${fontOwsald.className}`}>
+              Cashflow Management and Decision Support 
             </h1>
-            <p className={`text-xs lg:text-base text-gray-600 mb-6 ${fontOverpassMono.className}`}>
-              Welcome to your assistive guide to using our
-              Web-Based Financial Management System.
+            <p className={`text-xs lg:text-base text-[#0D0D0D] mb-6 ${fontOverpassMono.className}`}>
+              Welcome to your assistive guide to using this Cashflow Management and Administrative Decision Support System.
             </p>
-            {/* <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white !rounded-button whitespace-nowrap cursor-pointer">
-                <i className="fa-solid fa-play mr-2"></i>
-                Watch Tutorial
-              </Button>
-              <Button
-                variant="outline"
-                className="!rounded-button whitespace-nowrap cursor-pointer"
-                onClick={() => scrollToSection("cashflow")}
-              >
-                <i className="fa-solid fa-book-open mr-2"></i>
-                Start Reading
-              </Button>
-            </div> */}
           </div>
           <div className="md:w-1/2 mt-8 md:mt-0 animate-slide-in-right">
             <img
-              // src="https://readdy.ai/api/search-image?query=Modern%20financial%20dashboard%20interface%20with%20AI%20assistant%20helping%20user%20navigate%20through%20various%20financial%20tools%20and%20features%2C%20showing%20clean%20UI%20with%20data%20visualization%20elements%2C%20charts%20and%20helpful%20tooltips%20on%20a%20light%20background%20with%20blue%20accents&width=600&height=400&seq=hero1&orientation=landscape"
               src="dashboard.png"
               alt="Financial System Overview"
               className="rounded-lg shadow-xl object-cover w-full h-auto"
@@ -389,48 +364,48 @@ const Home = () => {
         <div className="grid grid-cols-1 gap-16">
           {features.map((feature, index) => (
             <section key={feature.id} id={feature.id} className="scroll-mt-24">
-              <Card className="overflow-hidden border-none shadow-lg">
-                <CardHeader className="bg-gradient-to-r from-blue-50 to-white pb-6">
+              <Card className="overflow-hidden !border-0 border-bg-inherit shadow-sm shadow-[#111827]">
+                <CardHeader className="bg-[#F5F5F5] border border-[#E5E5E5]">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center space-x-3">
                       <div className={`
                           ${feature.id === "DecisionSupport" || feature.id === "ai-transaction"
-                            ? ("w-12 h-12 rounded-full bg-blue-100 hover:animate-bounce border border-blue-600 hover:border-none group hover:bg-gradient-to-r hover:from-blue-700  hover:to-fuchsia-600 flex items-center justify-center")
-                            : ("w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center")
+                            ? ("w-12 h-12 rounded-full bg-[#E5E7EB] flex items-center justify-center")
+                            : ("w-12 h-12 rounded-full bg-[#E5E7EB] flex items-center justify-center")
                           }
                           
                           `}>
                         {feature.icon}
                       </div>
                       <div>
-                        <CardTitle className={`text-xl md:text-4xl font-light text-gray-800 ${fontPoppins.className}`}>
+                        <CardTitle className={`text-xl md:text-4xl font-light text-[#0D0D0D] ${fontPoppins.className}`}>
                           {feature.title}
                         </CardTitle>
-                        <CardDescription className={`${fontPoppins.className} font-light text-[0.65rem]/[1] md:text-sm text-gray-600 mt-1`}>
+                        <CardDescription className={`${fontPoppins.className} font-light text-[0.65rem]/[1] md:text-sm text-[#6B6B6B] mt-1`}>
                           {feature.description}
                         </CardDescription>
                       </div>
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="p-0">
+                <CardContent className="p-0 bg-[#F5F5F5] ">
                   <div className="grid md:grid-cols-2 gap-0">
-                    <div className="p-6">
-                      <h3 className={`text-lg font-semibold mb-4 text-gray-800 ${fontOverpassMono.className}`}>
+                    <div className="p-6 ">
+                      <h3 className={`text-lg font-semibold mb-4 text-[#0D0D0D] ${fontOverpassMono.className}`}>
                         Step-by-Step Guide
                       </h3>
                       <ol className="space-y-4">
                         {feature.steps.map((step, stepIndex) => (
                           <li key={stepIndex} className="flex items-start">
-                            <span className={`flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mr-3 font-medium ${fontOverpassMono.className}`}>
+                            <span className={`flex-shrink-0 w-8 h-8 rounded-full bg-[#E5E7EB]  text-[#0D0D0D] flex items-center justify-center mr-3 font-medium ${fontOverpassMono.className}`}>
                               {stepIndex + 1}
                             </span>
-                            <span className={`text-gray-700 pt-1 ${fontOverpassMono.className}`}>{step}</span>
+                            <span className={`text-[#0D0D0D] pt-1 ${fontOverpassMono.className}`}>{step}</span>
                           </li>
                         ))}
                       </ol>
                       <div className="mt-8">
-                        <h3 className={`text-lg font-semibold mb-4 text-gray-800 ${fontOverpassMono.className}`}>
+                        <h3 className={`text-lg font-semibold mb-4 text-[#0D0D0D] ${fontOverpassMono.className}`}>
                           Be informed with the following: 
                         </h3>
                       
@@ -438,11 +413,11 @@ const Home = () => {
                         {BestPractices.filter(bp => bp.id === feature.bestPracticeId).map((practice) => (
                           <Accordion key={practice.id} type="single" collapsible className="w-full">
                             <AccordionItem value={`list1-${practice.id}`}>
-                              <AccordionTrigger className={`text-blue-600 font-medium ${fontOverpassMono.className}`}>
+                              <AccordionTrigger className={`text-[#0D0D0D] font-medium ${fontOverpassMono.className}`}>
                                 {practice.ItemTrigger1}
                               </AccordionTrigger>
                               <AccordionContent>
-                                <ul className={`list-disc pl-5 space-y-2 text-gray-700 ${fontOverpassMono.className}`}>
+                                <ul className={`list-disc pl-5 space-y-2 text-[#0D0D0D] ${fontOverpassMono.className}`}>
                                   {practice.list.map((item, idx) => (
                                     <li key={idx}>{item}</li>
                                   ))}
@@ -450,11 +425,11 @@ const Home = () => {
                               </AccordionContent>
                             </AccordionItem>
                             <AccordionItem value={`list2-${practice.id}`}>
-                              <AccordionTrigger className={`text-blue-600 font-medium ${fontOverpassMono.className}`}>
+                              <AccordionTrigger className={`text-[#0D0D0D] font-medium ${fontOverpassMono.className}`}>
                                 {practice.ItemTrigger2}
                               </AccordionTrigger>
                               <AccordionContent>
-                                <ul className={`list-disc pl-5 space-y-2 text-gray-700 mt-4 ${fontOverpassMono.className}`}>
+                                <ul className={`list-disc pl-5 space-y-2 text-[#0D0D0D] mt-4 ${fontOverpassMono.className}`}>
                                   {practice.list2.map((item, idx) => (
                                     <li key={idx}>{item}</li>
                                   ))}
@@ -465,8 +440,8 @@ const Home = () => {
                         ))}
                       </div>
                     </div>
-                    <div className="bg-gray-50 p-6 flex flex-col">
-                      <h3 className={`${fontPoppins.className} tracking-wide text-lg font-semibold mb-4 text-gray-800`}>
+                    <div className="bg-[#F5F5F5] p-6 flex flex-col">
+                      <h3 className={`${fontPoppins.className} tracking-wide text-lg font-semibold mb-4 text-[#0D0D0D]`}>
                         Visual Guide
                       </h3>
                       <div className="rounded-lg overflow-hidden shadow-md flex-grow">
@@ -495,15 +470,15 @@ const Home = () => {
 
       {/* Floating action button */}
       {showButton && (
-        <div className="fixed bottom-6 right-6 z-10">
+        <div className="group fixed bottom-6 right-6 z-10">
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  className="w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-700 shadow-lg cursor-pointer"
+                  className="w-14 h-14 rounded-full bg-[#ffffffa7] group-hover:bg-black border border-black shadow-lg cursor-pointer"
                   onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                 >
-                  <Triangle className="text-white" size={24} />
+                  <Triangle className="text-black group-hover:text-white" size={24} />
                 </Button>
               </TooltipTrigger>
               <TooltipContent side="left">

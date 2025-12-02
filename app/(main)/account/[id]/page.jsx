@@ -1,38 +1,24 @@
 import { notFound } from "next/navigation";
 import React, { Suspense } from "react";
-
 import { BarLoader } from "react-spinners";
 import { getAccountWithTransactions, getSubAccounts, getSubAccTransactionRel } from "@/actions/accounts";
-import AccountChart from "../_components/account-chart";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { getCashflow, getCashflowEnding } from "@/actions/cashflow";
-// import { TransactionTable } from '..//_components/transaction_table';
+import { getCashflowEnding } from "@/actions/cashflow";
 import TransactionTable from "..//_components/transaction_table";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ChevronDown, MenuIcon } from "lucide-react";
-import CreateSubAccountButton from "../_components/create_sub-account";
 import SideNavBar from "@/components/sideNav";
-import AccountLineChart from "../_components/account-LineChart";
 import { getStaff, getUnauthUser } from "@/actions/admin";
 import NotFound from "@/app/not-found";
-import { useSession, useUser } from "@clerk/nextjs";
-import { Unica_One, Zen_Kaku_Gothic_Antique } from "next/font/google";
+import { Notable, Unica_One, Zen_Kaku_Gothic_Antique } from "next/font/google";
+import AccountChart from "../_components/account-chart";
 
-const fontUnicaOne = Unica_One({
-  subsets:["latin"],
-  weight: "400",
-})
+
 const fontZenKaku = Zen_Kaku_Gothic_Antique({
   subsets:["latin"],
   weight: "400",
+})
+
+const fontNotable = Notable({
+  subsets: ["latin"],
+  weight: [ "400"]
 })
 
 async function AccountsPage({ params }) {
@@ -58,7 +44,6 @@ async function AccountsPage({ params }) {
   // const recentCashflows = fetchedCashflows.latestCashflows;
 
   const { transactions, ...account } = accountData; //extract transacs and acc data
-
   // const cashflow = await getCashflow(id);
 
   if (!accountData) {
@@ -77,7 +62,7 @@ async function AccountsPage({ params }) {
         </div>
         <div className="text-center">
 
-          <h1 className={`text-6xl md:text-[5rem]/[1] ${fontUnicaOne.className} font-normal tracking-wide md:tracking-widest capitalize`}>
+          <h1 className={`text-6xl md:text-[5rem]/[1] ${fontNotable.className} font-normal tracking-wide md:tracking-widest capitalize`}>
             {account.name}
           </h1>
           <p className={`${fontZenKaku.className} text-md text-gray-500`}>
@@ -92,7 +77,6 @@ async function AccountsPage({ params }) {
         fallback={<BarLoader className="mt-4" width={"100%"} color="#9333ea" />}
       >
         <AccountChart id={id} transactions={transactions} />
-        {/* <AccountLineChart transactions={transactions} /> */}
       </Suspense>
 
       {/* Transaction Table */}

@@ -2,7 +2,7 @@
 import { getIntruder, getWebhookSessions } from '@/actions/admin'
 import React from 'react'
 import UserSessionTable from './_component/userLogpage'
-import { Unica_One, Zen_Kaku_Gothic_Antique } from 'next/font/google';
+import { Notable, Zen_Kaku_Gothic_Antique } from 'next/font/google';
 
 
 const fontZenKaku = Zen_Kaku_Gothic_Antique({
@@ -10,9 +10,10 @@ const fontZenKaku = Zen_Kaku_Gothic_Antique({
   weight: '400',
 })
 
-const fontUnicaOne = Unica_One({
-  subsets:["latin"],
-  weight: '400',
+
+const fontNotable = Notable({
+  subsets: ["latin"],
+  weight: [ "400"]
 })
 
 async function UserLog () {
@@ -26,7 +27,7 @@ async function UserLog () {
   return (
     <div className='p-6'>
       <div className="flex flex-col justify-start mb-6">
-        <span className={`${fontUnicaOne.className} text-6xl md:text-[5rem]/[1] font-normal`}>User Log</span>
+        <span className={`${fontNotable.className} text-4xl md:text-[5rem]/[1] font-normal`}>User Log</span>
         <span className={`${fontZenKaku.className} font-normal text-sm tracking-wide text-slate-600 p-0`}>These are logs of the sessions of every users.</span>
       </div>
       <UserSessionTable sessions={sessions} unauth={unauthData}/>

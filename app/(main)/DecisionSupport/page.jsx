@@ -1,4 +1,4 @@
-import { getDashboardData, getDashboardDataForDss, getUserAccounts } from '@/actions/dashboard';
+import { getDashboardDataForDss } from '@/actions/dashboard';
 import React from 'react'
 import SectionOne from './_components/section-one';
 import SectionTwo from './_components/sectionTwo';

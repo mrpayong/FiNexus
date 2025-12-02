@@ -105,8 +105,6 @@ const SectionFour = () => {
     }, [AIschedData])
   
   
-  console.log("AIschedData", AIschedData)
-    
     function mapAIScheduleToWeekDays(AIschedData) {
         const today = new Date();
         const startDay = getStartOfWeekPH(today);

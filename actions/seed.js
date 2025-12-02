@@ -3,8 +3,9 @@
 import { db } from "@/lib/prisma";
 import { subDays } from "date-fns";
 
-const ACCOUNT_ID = "fbd28b18-12ac-4f5c-8e4d-6e191e047bed";
-const USER_ID = "e774c135-5562-4dbe-89e6-d34864f1a7f4";
+const ACCOUNT_ID = "9cd4890a-0ca7-4298-ac31-5e663c017b06";
+const USER_ID = "896afb6d-b0de-4881-bb0c-cf6da5df5583";
+
 
 // Categories with their typical amount ranges 
 // const CATEGORIES = {
@@ -168,7 +169,7 @@ export async function seedTransactions() {
       message: `Created ${transactions.length} transactions`,
     };
   } catch (error) {
-    console.log("Error seeding transactions:", error.message, error);
+    console.log("Error seeding transactions:", error);
     return { success: false, error: error.message };
   }
 }

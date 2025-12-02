@@ -4,17 +4,18 @@ import { getAccounts, getActivityLogs, getCountActLogs, getCountCFS, getCountTra
 import DashboardSectionTwo from './_components/DashboardSectionTwo';
 import DashboardSectionThree from './_components/DashboardSectionThree';
 import { getUser } from '@/actions/settings';
-import { Unica_One, Zen_Kaku_Gothic_Antique } from 'next/font/google';
+import { Notable, Unica_One, Zen_Kaku_Gothic_Antique } from 'next/font/google';
 
 const fontZenKaku = Zen_Kaku_Gothic_Antique({
   subsets:["latin"],
   weight: '400',
 })
 
-const fontUnicaOne = Unica_One({
-  subsets:["latin"],
-  weight: "400",
+const fontNotable = Notable({
+  subsets: ["latin"],
+  weight: [ "400"]
 })
+
 
 const AdminPage = async () => {
   const activityLogs = await getCountActLogs();
@@ -73,7 +74,7 @@ const AdminPage = async () => {
   return (
     <div className='p-6'>
       <div className='flex flex-col justify-start mb-6'>
-        <span className={`${fontUnicaOne.className} text-6xl md:text-[5rem]/[1] font-normal`}>Admin Dashboard</span>
+        <span className={`${fontNotable.className} text-4xl lg:text-[4.4rem]/[1] font-normal`}>Admin Dashboard</span>
         <span className={`${fontZenKaku.className} text-sm font-normal tracking-wide text-slate-600 p-0`}>Reports of all recents activities.</span>
       </div>
       <DashboardSectionOne transactionCount={transactionCount} CfsCount={CfsCount} UserCount={UserCount} activityCount={activityCount} accountCount={accountCount}/>

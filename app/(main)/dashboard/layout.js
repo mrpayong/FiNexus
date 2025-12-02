@@ -4,12 +4,11 @@ import DashboardPage from './page';
 import {BarLoader} from "react-spinners"
 import { getStaff, getUnauthUser} from '@/actions/admin';
 import NotFound from '@/app/not-found';
-import { Unica_One } from 'next/font/google';
-import { headers } from 'next/headers';
+import { Notable} from 'next/font/google';
 
-const fontUnicaOne = Unica_One({
-  subsets:["latin"],
-  weight: "400",
+const fontNotable = Notable({
+  subsets: ["latin"],
+  weight: [ "400"]
 })
 
 const DashboardLayout = async () => {
@@ -21,8 +20,8 @@ const DashboardLayout = async () => {
     return NotFound()
   }
   return (
-    <div className='px-5'>
-        <h1 className={`text-6xl md:text-[5rem]/[1] mb-5 w-full ${fontUnicaOne.className} font-normal tracking-wider text-center md:text-start`}>Dashboard</h1>
+    <div className='bg-[#F5F5F5] px-5'>
+        <h1 className={`text-6xl md:text-[5rem]/[1] mb-5 w-full ${fontNotable.className} font-normal tracking-wider text-center md:text-start`}>Dashboard</h1>
 
         {/* Dashboard Page`` */}
         <Suspense 

@@ -144,7 +144,7 @@ const AccountChart = ({ transactions}) => {
 
   return (
     <>
-    <Card>
+    <Card className='bg-[#FFFFFF]'>
       <CardHeader className="flex  flex-col sm:flex-row items-center justify-between space-y-0 pb-7">
         <CardTitle className={`${fontZenKaku.className} text-3xl font-bold text-gray-800 tracking-wide`}>
             Transaction Overview

@@ -941,7 +941,7 @@ export async function getArchives(accountId){
                 accountId: accountId,
                 createdAt:{
                     gte: ninetyDaysAgoISO,
-                    lte: new Date(),
+                    lte: todayISO,
                 },
                 action: {
                     in: ['approveVoidedTransaction', 'deleteUnfinalizedCashflow', "voidedCFS"]
@@ -955,7 +955,16 @@ export async function getArchives(accountId){
             },
         });
 
-        return {success: true, code:200, data: archives};
+        console.log("Archives fetched: ", archives)
+
+        const accountName = await db.account.findUnique({
+            where:{ id: accountId },
+            select:{ name: true }
+        })
+
+        const clientName = accountName.name;
+
+        return {success: true, code:200, data: archives, clientName: clientName};
     } catch (error) {
         console.log("Error returning data", error)
         return {
@@ -1082,6 +1091,7 @@ export async function voidTransaction(id, accountId, reason){
     }
 
     revalidatePath(`/account/${accountId}`);
+    revalidatePath(`/SubAccounts/${accountId}`);
     revalidatePath("/admin");
     return {code:200, success: true}
   } catch (error) {
@@ -1258,7 +1268,82 @@ export async function getVoidsNotification() {
   }
 }
 
+export async function disapproveVoidedTransaction(id){
+    try {
+        const {userId} = await auth();
 
+        if (!userId) throw new Error("Unauthorized");
+        const user = await db.user.findUnique({
+            where: {clerkUserId: userId}
+        })
+        if (!user){
+            throw new Error("Action unavailable.")
+        }  
+        if(user.role !== "ADMIN"){
+            throw new Error("Action unavailable.")
+        }
+
+        const existingTransaction = await db.transaction.findUnique({
+            where: {id: id},
+        });
+
+        if(!existingTransaction && existingTransaction.voided === true){
+            return {code:404, success:false, message:"Transaction not found."}
+        }
+
+        const updateTrasaction = await db.transaction.update({
+            where: {id: existingTransaction.id},
+            data: {
+                voided: false
+            }
+        })
+
+        const JSONedTransaction = JSON.stringify(updateTrasaction);
+        const archiveResult = await archiveEntity({
+            userId: user.id,
+            accountId: updateTrasaction.accountId,
+            action: "disapproveVoidedTransaction",
+            entityType: "Transaction",
+            entityId: updateTrasaction.id,
+            data: JSONedTransaction,
+        });
+        if (!archiveResult || archiveResult.success === false) {
+            // fallback: create an activityLog entry to surface the failure
+            await db.activityLog.create({
+                data: {
+                    userId: user.id,
+                    action: "disapproveVoidedTransaction",
+                    meta: { message: "Possible System interruption: Failed to archive disapproved Voided Transaction." },
+                },
+            });
+            return;
+        }
+
+            const updateLog = await activityLog({
+              userId: user.id,
+              action: "disapproveVoidedTransaction",
+              args: {
+                updateTrasaction: updateTrasaction
+              },
+              timestamp: new Date()
+            });
+            if(updateLog.success === false){
+              await db.activityLog.create({
+                data: {
+                  userId: user.id,
+                  action: "disapproveVoidedTransaction",
+                  meta: { message: "Possible System interruption: Failed to log Edit Group Transaction Balance" },
+                }
+              })
+            }
+
+        revalidatePath("/admin/activityLogs");
+        return {code:200, success: true}
+    } catch (error) {
+        console.log("Error disapproving voided transaction.", error)
+        return {code:500, success: false, message:"Failed to disapprove voided transaction."}
+    }
+}
 
 
 

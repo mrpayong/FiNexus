@@ -99,6 +99,18 @@ function getActionLabel(action) {
       return "Logged Out";
     case "EMAIL-CREATED":
       return "OTP Requested";
+    case "deleteUnfinalizedCashflow":
+      return "Canceled Cashflow Statement creation"
+    case "voidTransaction":
+      return "Requested Transaction Void";
+    case "approveVoidedTransaction":
+      return "Approved Transaction Void";
+    case "updatedSubAccountDescription":
+      return "Added Note to Group Transaction";
+    case "disapproveVoidedTransaction":
+      return "Disapproved Void Request";
+    case "voidedCFS":
+      return "Unfinalized Cashflow Statement"
     default:
       return action;
   }

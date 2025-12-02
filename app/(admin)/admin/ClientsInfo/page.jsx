@@ -1,23 +1,20 @@
 import { getUserAccount } from '@/actions/admin';
-import { getUserAccounts } from '@/actions/dashboard';
-import AccountCard from '@/app/(main)/dashboard/_components/account-card';
-import CreateAccountDrawer from '@/components/create-account-drawer';
 import { AccountCardProvider } from '@/components/loadingCard';
 import { Card, CardContent } from '@/components/ui/card';
 import React from 'react'
 import ClientCard from './_components/clients-card';
 import { Plus } from 'lucide-react';
 import TestCard from './_components/TestCard';
-import { Unica_One, Zen_Kaku_Gothic_Antique } from 'next/font/google';
+import { Notable, Zen_Kaku_Gothic_Antique } from 'next/font/google';
 
 const fontZenKaku = Zen_Kaku_Gothic_Antique({
   subsets:["latin"],
   weight: '400',
 })
 
-const fontUnicaOne = Unica_One({
-  subsets:["latin"],
-  weight: "400",
+const fontNotable = Notable({
+  subsets: ["latin"],
+  weight: [ "400"]
 })
 
 
@@ -28,7 +25,7 @@ const ClientsPage = async () => {
   return (
     <div className='p-6'>
       <div className="flex flex-col justify-start mb-6">
-        <span className={`${fontUnicaOne.className} text-6xl md:text-[5rem]/[1] font-normal`}>Clients</span>
+        <span className={`${fontNotable.className} text-6xl md:text-[5rem]/[1] font-normal`}>Clients</span>
         <span className={`${fontZenKaku.className} text-sm tracking-wide text-slate-600 p-0`}>Accounts of the clients that all the staffs manage.</span>
       </div>
     <div className='space-y-8'>

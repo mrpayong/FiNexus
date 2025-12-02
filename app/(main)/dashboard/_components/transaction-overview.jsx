@@ -112,9 +112,6 @@ const DashboardOverview = ({accounts, transactions}) => {
 //  from transactions => take accountId =make it the= selectedAccount Id
   );
 
-  const recentTransactions = accountTransactions
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .slice(0, 5);
 
     // calculate expense breakdown for current month
     const currentDate = new Date();
@@ -144,7 +141,6 @@ const DashboardOverview = ({accounts, transactions}) => {
         })
     );
 
-    const currentDateForArea = new Date();
 
 const currtDate = new Date();
 const startMonth = new Date(currtDate.getFullYear(), currtDate.getMonth() - 2, 1); // Start of 2 months ago
@@ -214,23 +210,9 @@ const areaChartData = Object.entries(groupedTransactions)
         }).format(amount);
     };
 
-    const formatDate = (dateString) => {
-        const date = new Date(dateString); // Parse the date string
-        const utcYear = date.getUTCFullYear();
-        const utcMonth = date.getUTCMonth(); // Month is zero-based
-        const utcDay = date.getUTCDate();
-      
-        // Format the date as "Month Day, Year"
-        return new Date(Date.UTC(utcYear, utcMonth, utcDay)).toLocaleDateString(undefined, {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        });
-    };
 
     const expensePieLabel = new Date()
     expensePieLabel.setMonth(expensePieLabel.getMonth() - 1); // Set to last month
-    const expensePieLabelString = expensePieLabel.toLocaleString("default", { month: "long" });
 
     const valueFormatter = (item) => formatAmount(item.value);
 
@@ -296,9 +278,9 @@ const areaChartData = Object.entries(groupedTransactions)
     return (
     <div  className='flex flex-col gap-5'>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card>
-                <CardHeader className="flex flex-col-reverse gap-1 md:gap-0 md:flex-row items-center justify-between space-y-0 pb-4">
-                    <CardTitle className={`${fontZenKaku.className} font-normal text-sm sm:text-base md:text-lg lg:text-xl`}>
+            <Card className="bg-[#FFFFFF]">
+                <CardHeader className=" flex flex-col-reverse gap-1 md:gap-0 md:flex-row items-center justify-between space-y-0 pb-4">
+                    <CardTitle className={`${fontZenKaku.className} text-[#0D0D0D] font-normal text-sm sm:text-base md:text-lg lg:text-xl`}>
                         Highest source of Inflow last month
                     </CardTitle>
 
@@ -324,7 +306,7 @@ const areaChartData = Object.entries(groupedTransactions)
                     
                 </CardHeader>
 
-                <CardContent className='!pb-1 !mb-5'>
+                <CardContent className='!pb-1 !mb-5 bg-[#FFFFFF]'>
                     <div className="overflow-x-auto w-full">
                         <div className='space-y-4'>
                         {topIncomeCategories.length === 0 ? (
@@ -383,9 +365,9 @@ const areaChartData = Object.entries(groupedTransactions)
             </Card>
 
             
-            <Card>
-                <CardHeader>
-                    <CardTitle className={`${fontZenKaku.className} font-normal text-sm sm:text-base md:text-lg lg:text-xl`}>
+            <Card className="bg-[#FFFFFF]">
+                <CardHeader className="">
+                    <CardTitle className={`${fontZenKaku.className} text-[#0D0D0D] font-normal text-sm sm:text-base md:text-lg lg:text-xl`}>
                         Monthly Outflows Breakdown 
                     </CardTitle>    
                 </CardHeader>
@@ -444,9 +426,9 @@ const areaChartData = Object.entries(groupedTransactions)
         </div>
 
         
-            <Card className="w-full">
-                <CardHeader>
-                    <CardTitle className={`${fontZenKaku.className} font-normal text-sm sm:text-base md:text-lg lg:text-xl`}>
+            <Card className="w-full bg-[#FFFFFF]">
+                <CardHeader className="">
+                    <CardTitle className={`${fontZenKaku.className} text-[#0D0D0D] font-normal text-sm sm:text-base md:text-lg lg:text-xl`}>
                     Inflow vs. Outflow 
                     </CardTitle>
                 </CardHeader>

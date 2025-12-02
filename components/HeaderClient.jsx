@@ -7,14 +7,19 @@ import { Button } from "./ui/button";
 import { ArrowLeft, AtomIcon, House, Layout, LayoutDashboard, Loader2, LogIn, Settings, UserRoundCog } from "lucide-react";
 import MobileNavDrawer from "./MobileDrawer";
 import { SignInButton, SignOutButton, UserButton, useSession } from "@clerk/nextjs";
-import { PT_Serif } from "next/font/google";
+import { Bruno_Ace, PT_Sans } from "next/font/google";
 
 
 
 
-const PTserif = PT_Serif({
+const PTserif = PT_Sans({
   subsets:["latin"],
   weight: '700',
+})
+
+const Bruno_ace = Bruno_Ace({
+  subsets: ['latin'],
+  weight: '400',
 })
 
 export default function HeaderClient({ isAdminPage, isStaff, isAdmin, isSignedIn, SysAdminPage, isSysAdmin }) {
@@ -53,28 +58,28 @@ export default function HeaderClient({ isAdminPage, isStaff, isAdmin, isSignedIn
 // bg-gradient-to-r from-sky-300 to-white 
   return (
    <div 
-      className={`fixed top-0 w-full bg-white backdrop-blur-md 
+      className={`fixed top-0 w-full bg-[#FFFFFF] backdrop-blur-lg 
         z-50 border-b rounded-b-lg  transition-colors 
-        duration-300 ${navBorderClass}`}
+        duration-300 border-[#E5E5E5]`}
     >
-      <nav className="container mx-auto px-4 py-4 flex items-center justify-between gap-4 bg-neutral-50">
+      <nav className="container mx-auto px-4 py-4 flex items-center justify-between gap-4 bg-[#FFFFFF]">
         {/* LEFT: Logo + Name */}
         <div className="flex items-center min-w-[220px] shine-effect transition ">
           <Link href={isAdminPage ? "/admin" : "/"} className="flex items-center">
-            <Image
+            {/* <Image
               className="h-16 w-auto object-contain"
               src={"/try2.png"}
               alt="TA logo"
               width={60}
               height={200}
-            />
+            /> */}
             <div className="flex flex-col items-start ml-2">
-              <h1 className={`text-3xl tracking-widest font-bold bg-gradient-to-r from-[#FFCA4B] via-black/75 to-[#041f60] bg-clip-text text-transparent ${PTserif.className}`}>
-                Teruel
+              <h1 className={`text-3xl lg:text-7xl tracking-widest font-normal text-[#0D0D0D] bg-clip-text ${Bruno_ace.className}`}>
+                FiNexus
               </h1>
-              <h1 className={`text-xl tracking-wide font-semibold bg-gradient-to-r from-[#041f60] via-black/75 to-[#FFCA4B] bg-clip-text text-transparent ${PTserif.className}`} >
+              {/* <h1 className={`text-xl tracking-wide font-semibold bg-gradient-to-r from-[#041f60] via-black/75 to-[#FFCA4B] bg-clip-text text-transparent ${Bakbak_one.className}`} >
                 Accounting
-              </h1>
+              </h1> */}
             </div>
           </Link>
         
@@ -100,7 +105,7 @@ export default function HeaderClient({ isAdminPage, isStaff, isAdmin, isSignedIn
             {(pathname !== "/" || pathname.startsWith("/sign-in")) &&  ( 
               // if no in home then visibile
               <Link href={"/"}>
-                <Button variant="outline" onClick={handleNavClick} disabled={loading}>
+                <Button variant="outline" onClick={handleNavClick} disabled={loading} className="bg-[#0D0D0D] text-[#FFFFFF] hover:bg-[#FFFFFF] hover:border-[#C19A2F] hover:text-[#C19A2F]">
                   <House size={18} />
                   <span className={`hidden md:inline ${PTserif.className}`}>Home</span>
                 </Button>
@@ -120,7 +125,7 @@ export default function HeaderClient({ isAdminPage, isStaff, isAdmin, isSignedIn
                     if not Staff role, */}
                 {isSysAdmin && !pathname.startsWith("/SysAdmin") && pathname === "/" && (
                   <Link href={"/SysAdmin"}>
-                    <Button variant="outline" onClick={handleNavClick} disabled={loading}>
+                    <Button variant="outline" onClick={handleNavClick} disabled={loading} className="bg-[#0D0D0D] text-[#FFFFFF] hover:bg-[#FFFFFF] hover:border-[#C19A2F] hover:text-[#C19A2F]">
                       <UserRoundCog size={18} />
                       <span className={`hidden md:inline ${PTserif.className}`}>User Management</span>
                     </Button>
@@ -141,17 +146,17 @@ export default function HeaderClient({ isAdminPage, isStaff, isAdmin, isSignedIn
                   if not Staff role */}
                 {pathname !== "/DecisionSupport" && isAdmin && (
                   <Link href={"/DecisionSupport"}>
-                    <Button variant="outline" onClick={handleNavClick} disabled={loading}> 
+                    <Button variant="outline" onClick={handleNavClick} disabled={loading} className="bg-[#0D0D0D] text-[#FFFFFF] hover:bg-[#FFFFFF] hover:border-[#C19A2F] hover:text-[#C19A2F]"> 
                       <AtomIcon size={18} />
-                      <span className={`hidden md:inline ${PTserif.className}`}>Forecasting</span>
+                      <span className={`hidden md:inline tracking-wider ${PTserif.className}`}>Forecasting</span>
                     </Button>
                   </Link>
                 )}
                 {isAdmin && !pathname.startsWith("/admin") && (
                   <Link href={"/admin"}>
-                    <Button variant="outline" onClick={handleNavClick} disabled={loading} className="flex items-center gap-2">
+                    <Button variant="outline" onClick={handleNavClick} disabled={loading} className="flex items-center gap-2 bg-[#0D0D0D] text-[#FFFFFF] hover:bg-[#FFFFFF] hover:border-[#C19A2F] hover:text-[#C19A2F]">
                       <Layout size={18} />
-                      <span className={`hidden md:inline ${PTserif.className}`}>Admin Portal</span>
+                      <span className={`hidden md:inline tracking-wider ${PTserif.className}`}>Admin Portal</span>
                     </Button>
                   </Link>
                 )}
@@ -169,9 +174,9 @@ export default function HeaderClient({ isAdminPage, isStaff, isAdmin, isSignedIn
                   if not in SysAdmin page */}
                 {pathname !== "/dashboard" && isStaff && (
                     <Link href={"/dashboard"}>
-                      <Button variant="outline" onClick={handleNavClick} disabled={loading}>
+                      <Button variant="outline" onClick={handleNavClick} disabled={loading} className="bg-[#0D0D0D] text-[#FFFFFF] hover:bg-[#FFFFFF] hover:border-[#C19A2F] hover:text-[#C19A2F]">
                         <LayoutDashboard size={18} />
-                        <span className={`hidden md:inline ${PTserif.className}`}>Dashboard</span>
+                        <span className={`hidden md:inline tracking-wide ${PTserif.className}`}>Dashboard</span>
                       </Button>
                     </Link>
                   )}
@@ -182,14 +187,11 @@ export default function HeaderClient({ isAdminPage, isStaff, isAdmin, isSignedIn
             {/* LOGGED OUT */}
             {!isSignedIn && pathname !== '/sign-in' && pathname !== "/sign-in/factor-one" && (
               <div className="flex flex-row items-center justify-end gap-2 pr-3">
-                <span className={`${PTserif.className} text-gray-600 font-semibold lg:text-2xl md:text-lg hidden md:inline`}>
-                  Ready to start?
-                </span>
               <Link href={"/sign-in"}>
                 <Button 
                   className={`shine-effect transition 
-                  bg-white text-black border border-black
-                  hover:bg-black hover:text-white
+                  bg-[#111827] text-[#F3F4F6] border border-[#F3F4F6]
+                  hover:bg-[#F3F4F6] hover:text-[#111827]
                   hover:border-0 ${PTserif.className}`}
                   onClick={handleNavClick} disabled={loading}
                 >

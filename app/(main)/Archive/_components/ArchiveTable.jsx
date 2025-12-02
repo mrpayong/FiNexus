@@ -205,7 +205,6 @@ function manilaDateToUtc(dateStr, endOfDay = false) {
       it?.entityType === "Transaction" ? parseArchiveItem(it) : it
     );
 
-    console.log("parsedResult", parsedResult)
 
     return parsedResult;
   }, [archiveList, fromDate, toDate, sortConfig, actionFilter]);

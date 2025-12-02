@@ -745,7 +745,7 @@ const [rowsPerPage, setRowsPerPage] = useState(10);
       // );
       
       const PaginationControls = ({ currentPage, totalPages, onPageChange, itemsPerPage, setItemsPerPage }) => (
-        <div className={`${fontZenKaku.className} font-medium flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mt-4 mb-4 px-2`}>
+        <div className={`${fontZenKaku.className} border-t border-[#D4AF37] font-medium flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pt-2 mb-4 px-2`}>
           <div className="flex flex-row items-center gap-2">
             <label className={"text-sm hidden sm:inline-block sm:min-w-[6.5rem] whitespace-nowrap mr-2"}>Items per page</label>
             <Select
@@ -1142,11 +1142,7 @@ const handleDownloadCDBExcel = () => {
 //   router.push(`/transaction/create?edit=${transactionId}`);
 // };
 
-  const [tableBg, setTableBg] = useState(null)
 
-  const tableBgHandler = (id) => {
-    setTableBg(id)
-  }
 
   function formatNumberWithCommas(number) {
     return Number(number).toLocaleString();
@@ -1371,10 +1367,9 @@ const handleDownloadCDBExcel = () => {
 
                 <div className='flex flex-col lg:flex-row md:flex-row gap-2'>
                   <Select  value={typeFilter} onValueChange={setTypeFilter}>
-                      <SelectTrigger className={`${fontZenKaku.className} font-bold bg-gradient-to-r 
-                                        from-blue-500/10 to-purple-500/10 text-blue-400 hover:text-blue-300
-                                          border border-blue-500/30 hover:border-blue-500/50
-                                          shadow-lg shadow-blue-500/20
+                      <SelectTrigger className={`${fontZenKaku.className} font-bold bg-gradient-to-t
+                                        from-gray-500 to-white hover:from-[#0D0D0D] hover:to-[#0D0D0D] text-[#0D0D0D] hover:text-[#C19A2F]
+                                         shadow-lg shadow-[#0D0D0D]/20 hover:shadow-none border-none
                                           transition-all duration-300
                                           px-6 py-3 rounded-full
                                           text-sm tracking-wide
@@ -1397,9 +1392,10 @@ const handleDownloadCDBExcel = () => {
                     className="w-[140px] text-sm"
                   >
                     <SelectTrigger
-                      className={`${fontZenKaku.className} font-bold bg-gradient-to-r from-blue-500/10 to-purple-500/10 text-blue-400 hover:text-blue-300
-                                  border border-blue-500/30 hover:border-blue-500/50
-                                  shadow-lg shadow-blue-500/20
+                      className={`${fontZenKaku.className} font-bold bg-gradient-to-t
+                                  from-gray-500 to-white hover:from-[#0D0D0D] hover:to-[#0D0D0D]
+                                  text-[#0D0D0D] hover:text-[#C19A2F]
+                                  shadow-lg shadow-[#0D0D0D]/20 hover:shadow-none border-none
                                   transition-all duration-300
                                   px-6 py-3 rounded-full text-sm
                                   flex items-center gap-2
@@ -1468,9 +1464,9 @@ const handleDownloadCDBExcel = () => {
                       disabled={selectedIds.length === 0 && selectedSubAccountIds.length === 0}
                       variant="outline"
                       className={cn(
-                          "bg-gradient-to-r from-blue-500/10 to-purple-500/10 text-blue-400 hover:text-blue-300",
-                          "border border-blue-500/30 hover:border-blue-500/50",
-                          "shadow-lg shadow-blue-500/20",
+                          "bg-gradient-to-t from-gray-500 to-white hover:from-[#0D0D0D] hover:to-[#0D0D0D] text-[#0D0D0D] hover:text-[#C19A2F]",
+                          "border-none",
+                          " shadow-lg shadow-[#0D0D0D]/20 hover:shadow-none",
                           "transition-all duration-300",
                           "px-4 sm:px-6 py-2 sm:py-3 rounded-full",
                           "text-sm",
@@ -1543,7 +1539,7 @@ const handleDownloadCDBExcel = () => {
           value={response}
           onChange={handleSample}
           placeholder="Enter beginning balance"
-          className={`${fontZenKaku.className} font-normal !text-base mt-2`}
+          className={`${fontZenKaku.className} font-normal !text-base mt-2 focus:!border-[#D4AF37] focus:!ring-[#D4AF37] focus:!outline-none`}
         />
       )}
     </div>
@@ -1552,9 +1548,8 @@ const handleDownloadCDBExcel = () => {
     <div className="flex flex-col sm:flex-row items-center gap-4">
       <Button
         variant="outline"
-        className={`${fontZenKaku.className} font-bold bg-gradient-to-r from-blue-500/10 to-purple-500/10 text-blue-400 hover:text-blue-300
-            border border-blue-500/30 hover:border-blue-500/50
-            shadow-lg shadow-blue-500/20
+        className={`${fontZenKaku.className} font-bold 
+            bg-[#0D0D0D] text-[#FFFFFF] hover:bg-[#FFFFFF] hover:border-[#C19A2F] hover:text-[#C19A2F]
             transition-all duration-300
             px-6 py-3 rounded-full !text-base
             flex items-center gap-2
@@ -1767,10 +1762,10 @@ const handleDownloadCDBExcel = () => {
 
                         <div className="flex justify-end">
                             <Button type="submit" disabled={subAccountLoading || isCreateGroupDisabled} 
-                            className={`${fontZenKaku.className} md:!text-base text-sm bg-blue-500 text-white`}>
+                            className={`${fontZenKaku.className} md:!text-base text-sm bg-blue-500 text-white hover:bg-white hover:text-blue-500 hover:border hover:border-blue-500`}>
                             {subAccountLoading
                               ? (<><Loader2  className="mr-2 h-4 w-4 animate-spin text-blue-300" />Creating group</>)
-                              : "Create group"
+                              : "Create groups"
                             }
                             </Button>
                         </div>
@@ -1955,11 +1950,11 @@ const handleDownloadCDBExcel = () => {
           <TabsTrigger disabled={dropdownDisabledId || deleteLoading || deleteGroupLoading} value="subAccounts" className="font-medium !text-base flex-shrink-0 px-4 py-2">Grouped transactions tab</TabsTrigger>
         </TabsList>
         <TabsContent value="transactions">
-          <div className="rounded-md border overflow-x-auto">
+          <div className="bg-[#FFFFFF] rounded-md border overflow-x-auto">
 
             <Table>
-              <TableHeader className={`bg-slate-300 ${fontZenKaku.className} `}>
-                <TableRow>
+              <TableHeader className={`${fontZenKaku.className}`}>
+                <TableRow className="border-b border-[#D4AF37]">
                   <TableHead className="w-[50px] text-center">
                     {/* can Select All filtered data only */}
                     <Checkbox
@@ -1970,7 +1965,7 @@ const handleDownloadCDBExcel = () => {
                       }
                     />
                   </TableHead>
-                  <TableHead className="text-left cursor-pointer text-base"
+                  <TableHead className="text-[#0D0D0D] text-left cursor-pointer text-base"
                     onClick={() => handleSort("date")}
                   ><div className="flex items-center">
                   Transaction date
@@ -1982,8 +1977,8 @@ const handleDownloadCDBExcel = () => {
                     ))}
                 </div>
                   </TableHead>
-                  <TableHead className="text-left text-base">Particular</TableHead>
-                  <TableHead className="text-left cursor-pointer text-base"
+                  <TableHead className="text-[#0D0D0D] text-left text-base">Particular</TableHead>
+                  <TableHead className="text-[#0D0D0D] text-left cursor-pointer text-base"
                     onClick={() => handleSort("category")}
                     >
                       <div className="flex items-center">
@@ -1996,8 +1991,8 @@ const handleDownloadCDBExcel = () => {
                             ))}
                         </div>
                   </TableHead>
-                  <TableHead className="text-center w-[150px] text-base">Activity type</TableHead>
-                  <TableHead className="text-right cursor-pointer text-base"
+                  <TableHead className="text-[#0D0D0D] text-center w-[150px] text-base">Activity type</TableHead>
+                  <TableHead className="text-[#0D0D0D] text-right cursor-pointer text-base"
                     onClick={() => handleSort("amount")}>
                       <div className="flex items-center justify-end">
                           Amount
@@ -2009,7 +2004,7 @@ const handleDownloadCDBExcel = () => {
                             ))}
                         </div>
                   </TableHead>
-                  <TableHead className="text-center text-base hover:cursor-pointer"
+                  <TableHead className="text-[#0D0D0D] text-center text-base hover:cursor-pointer"
                     onClick={() => handleSort("createdAt")}>
                       <div className="flex justify-center">
                         Recorded on
@@ -2021,11 +2016,11 @@ const handleDownloadCDBExcel = () => {
                         ))}
                       </div>
                   </TableHead>
-                  <TableHead className="text-center text-base">Reference number</TableHead>
-                  <TableHead className="text-center text-base">Actions</TableHead>
+                  <TableHead className="text-center text-[#0D0D0D] text-base">Reference number</TableHead>
+                  <TableHead className="text-center text-[#0D0D0D] text-base">Actions</TableHead>
                 </TableRow>
               </TableHeader>
-              <TableBody className={`bg-zinc-200 ${fontZenKaku.className} font-medium text-base`}>
+              <TableBody className={` ${fontZenKaku.className} font-medium text-base`}>
                 {paginatedTransactions.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={9} className="text-center text-muted-foreground">
@@ -2034,13 +2029,7 @@ const handleDownloadCDBExcel = () => {
                   </TableRow>
                 ) : (
                   paginatedTransactions.map((transaction) => (
-                    <TableRow key={transaction.id}
-                      className={
-                        tableBg === transaction.id
-                          ? "bg-sky-100 transition-colors"
-                          : ""
-                      }
-                    >
+                    <TableRow key={transaction.id} className="border-0 hover:bg-[#F5F5F5]">
                       <TableCell className="text-center">
                         <Checkbox
                           onCheckedChange={() => handleSelect(transaction.id)}
@@ -2198,11 +2187,11 @@ const handleDownloadCDBExcel = () => {
         </TabsContent>
 
         <TabsContent value="subAccounts">
-          <div className="rounded-md border overflow-x-auto">
+          <div className="bg-[#FFFFFF] rounded-md border overflow-x-auto">
             <Table>
               <TableHeader className={`${fontZenKaku.className}`}>
-                <TableRow>
-                  <TableHead className="w-[50px]">
+                <TableRow className="border-b border-[#D4AF37]">
+                  <TableHead className="text-[#0D0D0D] w-[50px]">
                     <Checkbox
                       onCheckedChange={handleSelectAllSubAccounts}
                       checked={
@@ -2212,9 +2201,9 @@ const handleDownloadCDBExcel = () => {
                       }
                     />
                   </TableHead>
-                  <TableHead className="tracking-wide font-medium !text-base">Name</TableHead>
-                  <TableHead className="tracking-wide text-left font-medium !text-base">Amount</TableHead>
-                  <TableHead className="tracking-wide text-right font-medium !text-base">Actions</TableHead>
+                  <TableHead className="text-[#0D0D0D] tracking-wide font-medium !text-base">Name</TableHead>
+                  <TableHead className="text-[#0D0D0D] tracking-wide text-left font-medium !text-base">Amount</TableHead>
+                  <TableHead className="text-[#0D0D0D] tracking-wide text-right font-medium !text-base">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody className={`${fontZenKaku.className}`}>
@@ -2226,7 +2215,7 @@ const handleDownloadCDBExcel = () => {
                   </TableRow>
                 ) : (
                   paginatedSubAccounts.map((subAccount) => (
-                    <TableRow key={subAccount.id}>
+                    <TableRow key={subAccount.id} className='hover:bg-[#F5F5F5] border-0'>
                       <TableCell>
                         <Checkbox
                           onCheckedChange={() => handleSelectSubAccount(subAccount.id)}

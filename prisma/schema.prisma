@@ -4,16 +4,17 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
-
+        
 
 model User {
   id                      String    @id @default(uuid())
@@ -29,7 +30,7 @@ model User {
   tasks                   Task[]
   actLog                  ActivityLog[]
   archived                Archive[]
-  
+  prediction              Prediction[]
 
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
@@ -74,7 +75,8 @@ model Account {
   transactions            Transaction[]
   Cashflow                cashFlow[]
   archived                Archive[]
-
+  prediction              Prediction[]
+  
   @@index([userId])
   @@map("accounts")
 
@@ -125,7 +127,7 @@ model Transaction {
   voided                Boolean     @default(false)
 
   cashFlow              cashFlow[]   @relation("TransactionToCashflow") // Define the relationship
-  subAccounts            SubAccountTransaction[] // Explicit many-to-many relationship
+  subAccounts           SubAccountTransaction[] // Explicit many-to-many relationship
 
 
   createdAt             DateTime    @default(now())
@@ -337,4 +339,21 @@ model Unauthz {
   action    String
   meta      Json?
   createdAt DateTime @default(now())
+}
+
+model Prediction {
+  id            String   @id @default(uuid())
+  userId        String
+  accountId     String
+  monthYear     DateTime?
+  inflow        Float
+  outflow       Float
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user          User     @relation(fields: [userId], references: [id])
+  account       Account  @relation(fields: [accountId], references: [id])
+
+  @@index([userId])
+  @@index([accountId])
 }

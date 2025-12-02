@@ -131,11 +131,15 @@ export async function getUserAccounts() {
     const accounts = await db.account.findMany({                                            
         where: {userId: user.id }, //find acc that belongs to a user
         orderBy: { createdAt: "desc" }, //order by descending to when the acc is created
-        include: { //include the count of all transacs
+        select:{
+            id:true,
+            name:true,
             _count: {   
                 select: {
                     transactions: {
-                        where: {voided:false}
+                        where: {
+                            voided:false
+                        },
                     },
                 },
             },
@@ -164,6 +168,14 @@ export async function getDashboardData() {
         where: {
             userId: user.id,
             voided:false
+        },
+        select:{
+            id:true,
+            accountId:true,
+            type:true,
+            category:true,
+            amount:true,
+            date:true,
         },
         orderBy: {date: "desc"},
     });
