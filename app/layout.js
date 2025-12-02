@@ -10,6 +10,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { Suspense } from "react";
 import { BarLoader } from "react-spinners";
 import Footer from "@/components/Footer";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({subsets:["latin"]});
 
@@ -33,7 +34,7 @@ export default function RootLayout({ children }) {
                 <main className="min-h-screen relative z-0">
                  
                       {children}
-                    
+                    <SpeedInsights />
                   
                 </main>
             <Toaster richColors/>
