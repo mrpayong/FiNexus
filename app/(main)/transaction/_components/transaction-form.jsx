@@ -325,6 +325,7 @@ const AddTransactionForm = ({
                         className='!font-normal !text-base tracking-wide'
                         type="number" 
                         step="0.01"
+                        disabled={scannedReceipt}
                         placeholder="0.00"
                         {...register("amount")}
                     />
