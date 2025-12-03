@@ -183,7 +183,63 @@ export async function getAccountWithTransactions(accountId) {
         transactions: account.transactions.map(serializeTransaction), // when mapping through transaction obj.amnt will automatically be converted into number
     }
 }
+export async function getClientInfo(accountId) {
+    const {userId} = await auth();
+        if (!userId) throw new Error("Unauthorized");
 
+        const user = await db.user.findUnique({
+            where: {clerkUserId: userId},
+            select: {
+              id:true,
+              role: true,
+            }
+        });
+
+        if (!user) {
+            throw new Error("User not Found");
+        }
+
+        if (user.role !== "STAFF"){
+          return {authorized: false, reason: "User Admin !=1&&0"};
+        }
+
+
+        
+
+    const account = await db.account.findUnique({
+        where: { id: accountId, userId: user.id },
+        select: {
+          id:true,                     
+          name:true,                    
+          type:true,                  
+          isIndividual:true,    
+          createdAt:true,               
+          updatedAt:true,     
+          street:true,                 
+          buildingNumber:true,
+          town:true,                  
+          city:true,
+          zip:true,
+          province:true,
+          region:true,
+          businessLine:true,
+          tin:true,
+          RDO:true,
+          birthDate:true,
+          contactNumber:true,
+          email:true,
+          isHeadOffice:true,
+          branchCount:true,
+          owner:true,
+        },
+    });
+
+    if (!account) return null;
+
+    return {
+        account: account // when mapping through transaction obj.amnt will automatically be converted into number
+    }
+}
 
 export async function bulkDeleteTransactions(transactionIds, accountId, reason) {
   try {

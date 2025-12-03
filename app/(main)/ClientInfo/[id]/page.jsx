@@ -3,7 +3,7 @@ import React from 'react'
 import ClientInfoCard from '../_components/clientInfoCard';
 import { getStaff, getUnauthUser } from '@/actions/admin';
 import NotFound from '@/app/not-found';
-import { getAccountWithTransactions } from '@/actions/accounts';
+import { getClientInfo } from '@/actions/accounts';
 
 async function ClientInfoPage({params})  {
       const user = await getStaff()
@@ -14,8 +14,8 @@ async function ClientInfoPage({params})  {
       }
 
     const { id } = await params;
-    const accountData = await getAccountWithTransactions(id);
-    const { ...account } = accountData;
+    const accountData = await getClientInfo(id);
+    const account  = accountData.account;
 
   return (
     <main className="min-h-screen 
